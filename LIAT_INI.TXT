@@ -1,0 +1,9 @@
+Start semua Laragon nya dulu 
+
+Make trminal Laragon buat:
+    - npm run dev 
+
+Di Web pake link ini: http://proyek-pelamar.test 
+
+To Do:
+- Isi data profil terus di save, terus cek di database
