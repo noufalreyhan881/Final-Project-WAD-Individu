@@ -1,9 +1,23 @@
 Start semua Laragon nya dulu 
 
 Make trminal Laragon buat:
+    - cd masuk ke dalem folder project dulu 
     - npm run dev 
 
 Di Web pake link ini: http://proyek-pelamar.test 
 
+Akun dummy:
+email: dummy@kmail.com 
+pass: dummy12345678
+
+email: dummy_admin@kmail.com 
+pass: dummy.admin
+
+
 To Do:
-- Isi data profil terus di save, terus cek di database
+- 
+- 
+- 
+- 
+- 
+

@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -54,12 +55,31 @@ class ProfileController extends Controller
             'alamat_lengkap' => ['nullable', 'string'],
             'nomor_telepon' => ['nullable', 'string', 'max:15'],
             'pendidikan_terakhir' => ['nullable', 'string', 'max:255'],
+            'path_foto' => ['nullable', 'image', 'max:1024'], // Max 1MB
+            'path_cv' => ['nullable', 'file', 'mimes:pdf', 'max:2048'], // Max 2MB
         ]);
 
-        // Since we call this through the `profile()` relationship, Laravel automatically
-        // handles the `user_id`. We just need to pass the validated data.
-        $request->user()->profile()->update($validated);
+        $profile = $request->user()->profile;
 
+        if ($request->hasFile('path_foto')) {
+            // Hapus foto lama jika ada
+            if ($profile->path_foto) {
+                Storage::disk('public')->delete($profile->path_foto);
+            }
+            // Simpan foto baru dan dapatkan path-nya
+            $validated['path_foto'] = $request->file('path_foto')->store('photos', 'public');
+        }
+
+        if ($request->hasFile('path_cv')) {
+            // Hapus CV lama jika ada
+            if ($profile->path_cv) {
+                Storage::disk('public')->delete($profile->path_cv);
+            }
+            // Simpan CV baru dan dapatkan path-nya
+            $validated['path_cv'] = $request->file('path_cv')->store('cvs', 'public');
+        }
+
+        $profile->update($validated);
 
         return Redirect::route('profile.edit')->with('status', 'applicant-profile-updated');
     }

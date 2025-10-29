@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -53,6 +54,14 @@ class User extends Authenticatable
     public function profile(): HasOne
     {
         return $this->hasOne(ApplicantProfile::class);
+    }
+
+    /**
+     * Check if the user has an admin role.
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 
     /**

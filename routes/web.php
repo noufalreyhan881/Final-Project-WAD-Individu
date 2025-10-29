@@ -18,4 +18,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return '<h1>Welcome to Admin Dashboard</h1>'; // Halaman sementara
+    })->name('dashboard');
+
+    // CRUD routes for Job Vacancies
+    Route::resource('vacancies', \App\Http\Controllers\JobVacancyController::class);
+});
+
+
 require __DIR__.'/auth.php';

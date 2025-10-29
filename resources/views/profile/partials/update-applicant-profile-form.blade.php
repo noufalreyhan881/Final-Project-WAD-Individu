@@ -9,7 +9,7 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('profile.update.applicant') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update.applicant') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -57,6 +57,29 @@
             <x-input-label for="pendidikan_terakhir" :value="__('Pendidikan Terakhir')" />
             <x-text-input id="pendidikan_terakhir" name="pendidikan_terakhir" type="text" class="mt-1 block w-full" :value="old('pendidikan_terakhir', $user->profile->pendidikan_terakhir)" />
             <x-input-error class="mt-2" :messages="$errors->get('pendidikan_terakhir')" />
+        </div>
+
+        <div>
+            <x-input-label for="path_foto" :value="__('Foto Profil')" />
+            @if ($user->profile->path_foto)
+                <img src="{{ asset('storage/' . $user->profile->path_foto) }}" alt="Foto Profil" class="w-24 h-24 rounded-full object-cover my-2">
+            @endif
+            <input id="path_foto" name="path_foto" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
+            <x-input-error class="mt-2" :messages="$errors->get('path_foto')" />
+        </div>
+
+        <div>
+            <x-input-label for="path_cv" :value="__('Upload CV (PDF)')" />
+            @if ($user->profile->path_cv)
+                <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                    CV saat ini: <a href="{{ asset('storage/' . $user->profile->path_cv) }}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Lihat/Unduh CV</a>
+                </p>
+            @endif
+            <input id="path_cv" name="path_cv" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">
+                PDF (MAX. 2MB).
+            </p>
+            <x-input-error class="mt-2" :messages="$errors->get('path_cv')" />
         </div>
 
         <div class="flex items-center gap-4">
