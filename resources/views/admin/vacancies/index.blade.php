@@ -43,8 +43,12 @@
                                     </td>
                                     <td class="px-6 py-4">{{ \Carbon\Carbon::parse($vacancy->deadline)->format('d M Y') }}</td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ml-4">Hapus</a>
+                                        <a href="{{ route('admin.vacancies.edit', $vacancy->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        <form action="{{ route('admin.vacancies.destroy', $vacancy->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lowongan ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline ml-4">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @empty

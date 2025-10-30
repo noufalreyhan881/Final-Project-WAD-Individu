@@ -4,7 +4,14 @@ Make trminal Laragon buat:
     - cd masuk ke dalem folder project dulu 
     - npm run dev 
 
-Di Web pake link ini: http://proyek-pelamar.test 
+Di Web pake link ini: 
+http://proyek-pelamar.test > Halaman utama (login/register)
+http://proyek-pelamar.test/admin/vacancies > Membuat lowongan
+http://proyek-pelamar.test/admin/dashboard > Dashboard admin
+http://proyek-pelamar.test/lowongan > Lowongan pekerjaan
+http://proyek-pelamar.test/dashboard > Dashboard
+http://proyek-pelamar.test/my-applications > Daftar lamaran kerjaan
+
 
 Akun dummy:
 email: dummy@kmail.com 
@@ -13,9 +20,8 @@ pass: dummy12345678
 email: dummy_admin@kmail.com 
 pass: dummy.admin
 
-
 To Do:
-- 
+- Oke lamaran /my-applications udah kelar ni bray, lanjut
 - 
 - 
 - 

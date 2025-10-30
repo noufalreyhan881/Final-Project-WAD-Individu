@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @auth {{-- Hanya tampilkan jika user login --}}
+                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
+                        {{ __('Lamaran Saya') }}
+                    </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
@@ -70,6 +75,11 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @auth {{-- Hanya tampilkan jika user login --}}
+            <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.index')">
+                {{ __('Lamaran Saya') }}
+            </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

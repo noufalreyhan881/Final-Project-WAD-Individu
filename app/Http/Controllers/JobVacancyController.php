@@ -49,7 +49,7 @@ class JobVacancyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(JobVacancy $jobVacancy)
+    public function show(JobVacancy $vacancy)
     {
         //
     }
@@ -57,24 +57,40 @@ class JobVacancyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JobVacancy $jobVacancy)
+    public function edit(JobVacancy $vacancy)
     {
-        //
+        return view('admin.vacancies.edit', compact('vacancy'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobVacancy $jobVacancy)
+    public function update(Request $request, JobVacancy $vacancy)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'requirements' => 'required|string',
+            'location' => 'required|string|max:255',
+            'type' => 'required|in:Full-time,Part-time,Contract',
+            'status' => 'required|in:Open,Closed',
+            'deadline' => 'required|date',
+        ]);
+
+        $vacancy->update($validated);
+
+        return redirect()->route('admin.vacancies.index')
+                         ->with('success', 'Lowongan pekerjaan berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobVacancy $jobVacancy)
+    public function destroy(JobVacancy $vacancy)
     {
-        //
+        $vacancy->delete();
+
+        return redirect()->route('admin.vacancies.index')
+                         ->with('success', 'Lowongan pekerjaan berhasil dihapus.');
     }
 }

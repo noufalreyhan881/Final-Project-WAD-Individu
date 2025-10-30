@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Public Job Vacancy Routes
+Route::get('/lowongan', [\App\Http\Controllers\PublicJobVacancyController::class, 'index'])->name('jobs.index');
+Route::get('/lowongan/{vacancy}', [\App\Http\Controllers\PublicJobVacancyController::class, 'show'])->name('jobs.show');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -16,6 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/applicant', [ProfileController::class, 'updateApplicantProfile'])->name('profile.update.applicant');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Job Application Route
+    Route::post('/lowongan/{vacancy}/apply', [\App\Http\Controllers\JobApplicationController::class, 'store'])->name('jobs.apply');
+
+    // User's Job Applications List
+    Route::get('/my-applications', [\App\Http\Controllers\JobApplicationController::class, 'index'])->name('applications.index');
 });
 
 // Admin Routes
