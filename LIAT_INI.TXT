@@ -21,7 +21,7 @@ email: dummy_admin@kmail.com
 pass: dummy.admin
 
 To Do:
-- Oke lamaran /my-applications udah kelar ni bray, lanjut
+- 
 - 
 - 
 - 
