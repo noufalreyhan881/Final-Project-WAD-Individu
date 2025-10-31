@@ -93,4 +93,15 @@ class JobVacancyController extends Controller
         return redirect()->route('admin.vacancies.index')
                          ->with('success', 'Lowongan pekerjaan berhasil dihapus.');
     }
+
+    /**
+     * Display a listing of the applicants for the specified vacancy.
+     */
+    public function showApplicants(JobVacancy $vacancy)
+    {
+        // Eager load relasi: applications -> user -> profile
+        $vacancy->load(['applications.user.profile']);
+
+        return view('admin.vacancies.applicants', compact('vacancy'));
+    }
 }

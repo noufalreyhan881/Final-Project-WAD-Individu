@@ -36,6 +36,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // CRUD routes for Job Vacancies
     Route::resource('vacancies', \App\Http\Controllers\JobVacancyController::class);
+    Route::get('vacancies/{vacancy}/applicants', [\App\Http\Controllers\JobVacancyController::class, 'showApplicants'])->name('vacancies.applicants');
+
+    // Update Job Application Status
+    Route::patch('/applications/{application}/status', [\App\Http\Controllers\JobApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
+
+    // Show Applicant Profile
+    Route::get('/applicants/{user}', [\App\Http\Controllers\Admin\ApplicantController::class, 'show'])->name('applicants.show');
 });
 
 

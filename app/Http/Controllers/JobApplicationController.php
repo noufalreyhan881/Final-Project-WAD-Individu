@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\ApplicationStatusUpdated;
 use App\Models\JobVacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,5 +49,22 @@ class JobApplicationController extends Controller
         $applications = $user->applications()->with('jobVacancy')->latest()->paginate(10);
 
         return view('applications.index', compact('applications'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateStatus(Request $request, \App\Models\JobApplication $application)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,reviewed,rejected,hired',
+        ]);
+
+        $application->update($validated);
+
+        // Kirim notifikasi ke user
+        $application->load('user')->user->notify(new ApplicationStatusUpdated($application));
+
+        return back()->with('success', 'Status lamaran berhasil diperbarui.');
     }
 }
